@@ -1,24 +1,56 @@
-package com.company;
+import java.io.*;
+import java.util.*;
 
+public class Person {
+    private int age;
 
-import java.util.Scanner;
+    public Person(int initialAge) {
+        // Add some more code to run some checks on initialAge
+        if(initialAge < 0)
+        {
+            System.out.println("Age is not valid, setting age to 0.");
+            age = 0;
+        }
+        else
+        {
+            age = initialAge;
+        }
+    }
 
-public class Solution {
+    public void amIOld() {
+        // Write code determining if this person's age is old and print the correct statement:
+        if(age < 13)
+        {
+            System.out.println("You are young.");
+        }
+        else if(age < 18)
+        {
+            System.out.println("You are a teenager.");
+        }
+        else
+        {
+            System.out.println("You are old.");
+        }
+    }
+
+    public void yearPasses() {
+        // Increment this person's age.
+        age++;
+    }
+
     public static void main(String[] args) {
-        // Create a Scanner object to read input from stdin.
-        Scanner scan = new Scanner(System.in);
-
-        // Read a full line of input from stdin and save it to our variable, inputString.
-        String inputString = scan.nextLine();
-
-        // Close the scanner object, because we've finished reading
-        // all of the input from stdin needed for this challenge.
-        scan.close();
-
-        // Print a string literal saying "Hello, World." to stdout.
-        System.out.println("Hello, World.");
-
-        // TODO: Write a line of code here that prints the contents of inputString to stdout.
-        System.out.println(inputString);
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();
+        for (int i = 0; i < T; i++) {
+            int age = sc.nextInt();
+            Person p = new Person(age);
+            p.amIOld();
+            for (int j = 0; j < 3; j++) {
+                p.yearPasses();
+            }
+            p.amIOld();
+            System.out.println();
+        }
+        sc.close();
     }
 }
