@@ -1,36 +1,32 @@
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
+//Complete this code or write your own from scratch
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
+import java.io.*;
 
-public class Solution {
+class Solution{
+    public static void main(String []argh){
+        Map<String, Integer> phoneBook = new HashMap<String, Integer>();
 
-
-
-    private static final Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
-        int n = scanner.nextInt();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        int[] arr = new int[n];
-
-        String[] arrItems = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        for (int i = 0; i < n; i++) {
-            int arrItem = Integer.parseInt(arrItems[i]);
-            arr[i] = arrItem;
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        for(int i = 0; i < n; i++){
+            String name = in.next();
+            int phone = in.nextInt();
+            // Write code here
+            phoneBook.put(name, phone);
         }
-
-        scanner.close();
-
-        for(int i = (n - 1); i >= 0; i--)
-        {
-            System.out.print(arrItems[i] + " ");
+        while(in.hasNext()){
+            String s = in.next();
+            // Write code here
+            Integer number = phoneBook.get(s);
+            if(number != null)
+            {
+                System.out.println(s + "=" + number);
+            }
+            else
+            {
+                System.out.println("Not found");
+            }
         }
+        in.close();
     }
 }
