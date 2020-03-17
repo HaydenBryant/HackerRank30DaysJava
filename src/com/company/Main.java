@@ -1,66 +1,30 @@
 import java.util.*;
 
-class Person {
-    protected String firstName;
-    protected String lastName;
-    protected int idNumber;
+abstract class Book {
+    String title;
+    String author;
 
-    // Constructor
-    Person(String firstName, String lastName, int identification){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.idNumber = identification;
+    Book(String title, String author) {
+        this.title = title;
+        this.author = author;
     }
 
-    // Print person data
-    public void printPerson(){
-        System.out.println(
-                "Name: " + lastName + ", " + firstName
-                        + 	"\nID: " + idNumber);
-    }
-
+    abstract void display();
 }
 
-class Student extends Person {
-    private int[] testScores;
+class MyBook extends Book{
+    private int price;
 
-    public Student(String firstName, String lastName, int id, int[] scores) {
-        super(firstName, lastName, id);
-        this.testScores = scores;
+    MyBook(String title, String author, int price){
+        super(title, author);
+        this.price = price;
     }
 
-    public char calculate() {
-        int sum = 0;
-        for (int i = 0; i < testScores.length; i++) {
-            sum += testScores[i];
-        }
-        int average = sum / testScores.length;
-
-        if (average >= 90) return 'O';
-        if (average >= 80) return 'E';
-        if (average >= 70) return 'A';
-        if (average >= 55) return 'P';
-        if (average >= 40) return 'D';
-        return 'T';
-
+    void display(){
+        System.out.println("Title: " + title);
+        System.out.println("Author: " + author);
+        System.out.println("Price: " + price);
     }
 }
 
-class Solution {
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        String firstName = scan.next();
-        String lastName = scan.next();
-        int id = scan.nextInt();
-        int numScores = scan.nextInt();
-        int[] testScores = new int[numScores];
-        for(int i = 0; i < numScores; i++){
-            testScores[i] = scan.nextInt();
-        }
-        scan.close();
-
-        Student s = new Student(firstName, lastName, id, testScores);
-        s.printPerson();
-        System.out.println("Grade: " + s.calculate());
-    }
-}
+public class Solution {
