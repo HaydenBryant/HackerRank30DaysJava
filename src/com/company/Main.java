@@ -1,32 +1,66 @@
-//Complete this code or write your own from scratch
 import java.util.*;
-import java.io.*;
 
-class Solution{
-    public static void main(String []argh){
-        Map<String, Integer> phoneBook = new HashMap<String, Integer>();
+class Person {
+    protected String firstName;
+    protected String lastName;
+    protected int idNumber;
 
-        Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
-        for(int i = 0; i < n; i++){
-            String name = in.next();
-            int phone = in.nextInt();
-            // Write code here
-            phoneBook.put(name, phone);
+    // Constructor
+    Person(String firstName, String lastName, int identification){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.idNumber = identification;
+    }
+
+    // Print person data
+    public void printPerson(){
+        System.out.println(
+                "Name: " + lastName + ", " + firstName
+                        + 	"\nID: " + idNumber);
+    }
+
+}
+
+class Student extends Person {
+    private int[] testScores;
+
+    public Student(String firstName, String lastName, int id, int[] scores) {
+        super(firstName, lastName, id);
+        this.testScores = scores;
+    }
+
+    public char calculate() {
+        int sum = 0;
+        for (int i = 0; i < testScores.length; i++) {
+            sum += testScores[i];
         }
-        while(in.hasNext()){
-            String s = in.next();
-            // Write code here
-            Integer number = phoneBook.get(s);
-            if(number != null)
-            {
-                System.out.println(s + "=" + number);
-            }
-            else
-            {
-                System.out.println("Not found");
-            }
+        int average = sum / testScores.length;
+
+        if (average >= 90) return 'O';
+        if (average >= 80) return 'E';
+        if (average >= 70) return 'A';
+        if (average >= 55) return 'P';
+        if (average >= 40) return 'D';
+        return 'T';
+
+    }
+}
+
+class Solution {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        String firstName = scan.next();
+        String lastName = scan.next();
+        int id = scan.nextInt();
+        int numScores = scan.nextInt();
+        int[] testScores = new int[numScores];
+        for(int i = 0; i < numScores; i++){
+            testScores[i] = scan.nextInt();
         }
-        in.close();
+        scan.close();
+
+        Student s = new Student(firstName, lastName, id, testScores);
+        s.printPerson();
+        System.out.println("Grade: " + s.calculate());
     }
 }
