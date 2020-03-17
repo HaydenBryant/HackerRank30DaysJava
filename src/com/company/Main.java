@@ -1,30 +1,49 @@
+import java.io.*;
 import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
 
-abstract class Book {
-    String title;
-    String author;
 
-    Book(String title, String author) {
-        this.title = title;
-        this.author = author;
+class Difference {
+    private int[] elements;
+    public int maximumDifference;
+
+    // Add your code here
+    public Difference(int[] elements) {
+        this.elements = elements;
     }
 
-    abstract void display();
-}
-
-class MyBook extends Book{
-    private int price;
-
-    MyBook(String title, String author, int price){
-        super(title, author);
-        this.price = price;
+    public void computeDifference() {
+        int max = 0;
+        for(int num : elements){
+            for(int num2 : elements){
+                if(Math.abs(num - num2) > max){
+                    max = Math.abs(num - num2);
+                }
+            }
+        }
+        maximumDifference = max;
     }
 
-    void display(){
-        System.out.println("Title: " + title);
-        System.out.println("Author: " + author);
-        System.out.println("Price: " + price);
-    }
-}
+
+} // End of Difference class
 
 public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = sc.nextInt();
+        }
+        sc.close();
+
+        Difference difference = new Difference(a);
+
+        difference.computeDifference();
+
+        System.out.print(difference.maximumDifference);
+    }
+}
