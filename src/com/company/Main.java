@@ -1,24 +1,49 @@
-package com.company;
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
 
 
-import java.util.Scanner;
+class Difference {
+    private int[] elements;
+    public int maximumDifference;
+
+    // Add your code here
+    public Difference(int[] elements) {
+        this.elements = elements;
+    }
+
+    public void computeDifference() {
+        int max = 0;
+        for(int num : elements){
+            for(int num2 : elements){
+                if(Math.abs(num - num2) > max){
+                    max = Math.abs(num - num2);
+                }
+            }
+        }
+        maximumDifference = max;
+    }
+
+
+} // End of Difference class
 
 public class Solution {
+
     public static void main(String[] args) {
-        // Create a Scanner object to read input from stdin.
-        Scanner scan = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = sc.nextInt();
+        }
+        sc.close();
 
-        // Read a full line of input from stdin and save it to our variable, inputString.
-        String inputString = scan.nextLine();
+        Difference difference = new Difference(a);
 
-        // Close the scanner object, because we've finished reading
-        // all of the input from stdin needed for this challenge.
-        scan.close();
+        difference.computeDifference();
 
-        // Print a string literal saying "Hello, World." to stdout.
-        System.out.println("Hello, World.");
-
-        // TODO: Write a line of code here that prints the contents of inputString to stdout.
-        System.out.println(inputString);
+        System.out.print(difference.maximumDifference);
     }
 }
