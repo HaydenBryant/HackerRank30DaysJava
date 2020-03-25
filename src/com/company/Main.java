@@ -1,49 +1,39 @@
-import java.io.*;
 import java.util.*;
-import java.text.*;
-import java.math.*;
-import java.util.regex.*;
+import java.io.*;
 
+//Write your code here
+class Calculator{
+    public int power(int n, int p) throws Exception{
 
-class Difference {
-    private int[] elements;
-    public int maximumDifference;
-
-    // Add your code here
-    public Difference(int[] elements) {
-        this.elements = elements;
-    }
-
-    public void computeDifference() {
-        int max = 0;
-        for(int num : elements){
-            for(int num2 : elements){
-                if(Math.abs(num - num2) > max){
-                    max = Math.abs(num - num2);
-                }
-            }
+        if(n >= 0 && p >= 0){
+            return (int)Math.pow(n, p);
         }
-        maximumDifference = max;
+        else{
+            throw new Exception("n and p should be non-negative");
+        }
     }
+}
 
 
-} // End of Difference class
-
-public class Solution {
+class Solution{
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[] a = new int[n];
-        for (int i = 0; i < n; i++) {
-            a[i] = sc.nextInt();
+
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while (t-- > 0) {
+
+            int n = in.nextInt();
+            int p = in.nextInt();
+            Calculator myCalculator = new Calculator();
+            try {
+                int ans = myCalculator.power(n, p);
+                System.out.println(ans);
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
-        sc.close();
-
-        Difference difference = new Difference(a);
-
-        difference.computeDifference();
-
-        System.out.print(difference.maximumDifference);
+        in.close();
     }
 }
