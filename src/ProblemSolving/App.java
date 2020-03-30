@@ -1,45 +1,69 @@
 import java.io.*;
 import java.math.*;
+import java.security.*;
 import java.text.*;
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.regex.*;
 
-public class Solution {
+class Result {
 
     /*
-     * Complete the timeConversion function below.
+     * Complete the 'diagonalDifference' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts 2D_INTEGER_ARRAY arr as parameter.
      */
-    static String timeConversion(String s) {
-        if(s.contains("AM"))
-        {
-            String[] arr = s.substring(0, 8).split(":", 2);
-            if(arr[0].contains("12")){
-                arr[0] = "00";
+
+    public static int diagonalDifference(List<List<Integer>> arr) {
+        // Write your code here
+        int len = arr.size();
+        int diag1 = 0;
+        int diag2 = 0;
+
+        for(int i = 0; i < len; i++){
+            for(int j = 0; j < len; j++){
+                if(i == j){
+                    diag1 += arr.get(i).get(j);
+                }
+                if(i + j == len - 1){
+                    diag2 += arr.get(i).get(j);
+                }
             }
-            return(arr[0]+":"+arr[1]);
-        } else{
-            String[] arr = s.substring(0, 8).split(":", 2);
-            if(arr[0].contains("12")){
-                return(arr[0]+":"+arr[1]);
-            }
-            int hour = Integer.parseInt(arr[0]);
-            hour += 12;
-            return(hour+":"+arr[1]);
         }
+        return Math.abs(diag1-diag2);
     }
 
-    private static final Scanner scan = new Scanner(System.in);
+}
 
+public class Solution {
     public static void main(String[] args) throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        String s = scan.nextLine();
+        int n = Integer.parseInt(bufferedReader.readLine().trim());
 
-        String result = timeConversion(s);
+        List<List<Integer>> arr = new ArrayList<>();
 
-        bw.write(result);
-        bw.newLine();
+        for (int i = 0; i < n; i++) {
+            String[] arrRowTempItems = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
 
-        bw.close();
+            List<Integer> arrRowItems = new ArrayList<>();
+
+            for (int j = 0; j < n; j++) {
+                int arrItem = Integer.parseInt(arrRowTempItems[j]);
+                arrRowItems.add(arrItem);
+            }
+
+            arr.add(arrRowItems);
+        }
+
+        int result = Result.diagonalDifference(arr);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
     }
 }
