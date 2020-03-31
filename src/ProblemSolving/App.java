@@ -6,64 +6,46 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.regex.*;
 
-class Result {
+public class Solution {
 
-    /*
-     * Complete the 'diagonalDifference' function below.
-     *
-     * The function is expected to return an INTEGER.
-     * The function accepts 2D_INTEGER_ARRAY arr as parameter.
-     */
-
-    public static int diagonalDifference(List<List<Integer>> arr) {
-        // Write your code here
-        int len = arr.size();
-        int diag1 = 0;
-        int diag2 = 0;
-
-        for(int i = 0; i < len; i++){
-            for(int j = 0; j < len; j++){
-                if(i == j){
-                    diag1 += arr.get(i).get(j);
-                }
-                if(i + j == len - 1){
-                    diag2 += arr.get(i).get(j);
-                }
+    // Complete the introTutorial function below.
+    static int introTutorial(int V, int[] arr) {
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] == V){
+                return i;
             }
         }
-        return Math.abs(diag1-diag2);
+        return 0;
     }
 
-}
+    private static final Scanner scanner = new Scanner(System.in);
 
-public class Solution {
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int n = Integer.parseInt(bufferedReader.readLine().trim());
+        int V = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        List<List<Integer>> arr = new ArrayList<>();
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        int[] arr = new int[n];
+
+        String[] arrItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
         for (int i = 0; i < n; i++) {
-            String[] arrRowTempItems = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
-
-            List<Integer> arrRowItems = new ArrayList<>();
-
-            for (int j = 0; j < n; j++) {
-                int arrItem = Integer.parseInt(arrRowTempItems[j]);
-                arrRowItems.add(arrItem);
-            }
-
-            arr.add(arrRowItems);
+            int arrItem = Integer.parseInt(arrItems[i]);
+            arr[i] = arrItem;
         }
 
-        int result = Result.diagonalDifference(arr);
+        int result = introTutorial(V, arr);
 
         bufferedWriter.write(String.valueOf(result));
         bufferedWriter.newLine();
 
-        bufferedReader.close();
         bufferedWriter.close();
+
+        scanner.close();
     }
 }
