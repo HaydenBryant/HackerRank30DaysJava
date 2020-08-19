@@ -8,43 +8,47 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the introTutorial function below.
-    static int introTutorial(int V, int[] arr) {
-        for(int i = 0; i < arr.length; i++){
-            if(arr[i] == V){
-                return i;
+    // Complete the whatFlavors function below.
+    static void whatFlavors(int[] cost, int money) {
+        HashMap<Integer, Integer> costs = new HashMap<Integer, Integer>();
+
+        for(int i = 0; i < cost.length; i++){
+            int remainder = (money - cost[i]);
+
+            if(costs.containsKey(remainder)){
+                System.out.println((costs.get(remainder) + 1)+ " " + (i + 1));
+                return;
             }
+
+            costs.put(cost[i], i);
         }
-        return 0;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
-
-        int V = scanner.nextInt();
+    public static void main(String[] args) {
+        int t = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        int n = scanner.nextInt();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+        for (int tItr = 0; tItr < t; tItr++) {
+            int money = scanner.nextInt();
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        int[] arr = new int[n];
+            int n = scanner.nextInt();
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        String[] arrItems = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+            int[] cost = new int[n];
 
-        for (int i = 0; i < n; i++) {
-            int arrItem = Integer.parseInt(arrItems[i]);
-            arr[i] = arrItem;
+            String[] costItems = scanner.nextLine().split(" ");
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+            for (int i = 0; i < n; i++) {
+                int costItem = Integer.parseInt(costItems[i]);
+                cost[i] = costItem;
+            }
+
+            whatFlavors(cost, money);
         }
-
-        int result = introTutorial(V, arr);
-
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
-
-        bufferedWriter.close();
 
         scanner.close();
     }
