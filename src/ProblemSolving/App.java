@@ -8,47 +8,73 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the whatFlavors function below.
-    static void whatFlavors(int[] cost, int money) {
-        HashMap<Integer, Integer> costs = new HashMap<Integer, Integer>();
+    // Complete the riddle function below.
+    static long[] riddle(long[] arr) {
+        // complete this function
+        // List<Long> minMax = new ArrayList<>();
+        long[] minMax = new long[arr.length];
 
-        for(int i = 0; i < cost.length; i++){
-            int remainder = (money - cost[i]);
+        // minMax.add(Collections.max(Arrays.asList(arr)));
 
-            if(costs.containsKey(remainder)){
-                System.out.println((costs.get(remainder) + 1)+ " " + (i + 1));
-                return;
+        // long max = Arrays.stream(arr)
+        //     .max()
+        //     .getAsLong();
+
+        // minMax[0] = max;
+
+        List<Long> minimums = new ArrayList<>();
+        for(int i = 0; i < arr.length; i++){
+            long current = arr[i];
+            for(int j = 0; j < i + 1; j++){
+                if(arr[j] < current){
+                    current = arr[j];
+                }
+                if(j + 1 == i + 1){
+                    minimums.add(current);
+                }
             }
+            long maxMin = Collections.min(minimums);
+            minMax[i] = maxMin;
 
-            costs.put(cost[i], i);
         }
+        // long[] itemsArray = new long[arr.length];
+        // itemsArray = minMax.toArray(itemsArray);
+
+        return minMax;
+
     }
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        int t = scanner.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int n = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        for (int tItr = 0; tItr < t; tItr++) {
-            int money = scanner.nextInt();
-            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+        long[] arr = new long[n];
 
-            int n = scanner.nextInt();
-            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+        String[] arrItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-            int[] cost = new int[n];
-
-            String[] costItems = scanner.nextLine().split(" ");
-            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-            for (int i = 0; i < n; i++) {
-                int costItem = Integer.parseInt(costItems[i]);
-                cost[i] = costItem;
-            }
-
-            whatFlavors(cost, money);
+        for (int i = 0; i < n; i++) {
+            long arrItem = Long.parseLong(arrItems[i]);
+            arr[i] = arrItem;
         }
+
+        long[] res = riddle(arr);
+
+        for (int i = 0; i < res.length; i++) {
+            bufferedWriter.write(String.valueOf(res[i]));
+
+            if (i != res.length - 1) {
+                bufferedWriter.write(" ");
+            }
+        }
+
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
 
         scanner.close();
     }
