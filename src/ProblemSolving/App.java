@@ -1,45 +1,70 @@
 import java.io.*;
 import java.math.*;
+import java.security.*;
 import java.text.*;
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.regex.*;
 
 public class Solution {
 
-    /*
-     * Complete the timeConversion function below.
-     */
-    static String timeConversion(String s) {
-        if(s.contains("AM"))
-        {
-            String[] arr = s.substring(0, 8).split(":", 2);
-            if(arr[0].contains("12")){
-                arr[0] = "00";
+    // Complete the riddle function below.
+    static long[] riddle(long[] arr) {
+        // complete this function
+        long[] minMax = new long[arr.length];
+
+        HashMap<long, ArrayList<long>> map = new HashMap<long, ArrayList<long>>();
+
+        long length = arr.length;
+
+        long saved = 0;
+        for(long i = 0; i < length; i++){
+            if(itemsList == null) {
+                map = new ArrayList<Item>();
+                map.add(myItem);
+                map.put(mapKey, itemsList);
+            } else {
+                // add if item is not already in list
+                if(!itemsList.contains(myItem)) itemsList.add(myItem);
             }
-            return(arr[0]+":"+arr[1]);
-        } else{
-            String[] arr = s.substring(0, 8).split(":", 2);
-            if(arr[0].contains("12")){
-                return(arr[0]+":"+arr[1]);
-            }
-            int hour = Integer.parseInt(arr[0]);
-            hour += 12;
-            return(hour+":"+arr[1]);
         }
+
+        return minMax;
+
     }
 
-    private static final Scanner scan = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        String s = scan.nextLine();
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        String result = timeConversion(s);
+        long[] arr = new long[n];
 
-        bw.write(result);
-        bw.newLine();
+        String[] arrItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        bw.close();
+        for (int i = 0; i < n; i++) {
+            long arrItem = Long.parseLong(arrItems[i]);
+            arr[i] = arrItem;
+        }
+
+        long[] res = riddle(arr);
+
+        for (int i = 0; i < res.length; i++) {
+            bufferedWriter.write(String.valueOf(res[i]));
+
+            if (i != res.length - 1) {
+                bufferedWriter.write(" ");
+            }
+        }
+
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+
+        scanner.close();
     }
 }
