@@ -13,20 +13,29 @@ public class Solution {
         // complete this function
         long[] minMax = new long[arr.length];
 
-        HashMap<long, ArrayList<long>> map = new HashMap<long, ArrayList<long>>();
-
+        HashMap<Long, ArrayList<Long>> map = new HashMap<Long, ArrayList<Long>>();
+        Array<Long> array = arr;
         long length = arr.length;
 
-        long saved = 0;
-        for(long i = 0; i < length; i++){
-            if(itemsList == null) {
-                map = new ArrayList<Item>();
-                map.add(myItem);
-                map.put(mapKey, itemsList);
-            } else {
-                // add if item is not already in list
-                if(!itemsList.contains(myItem)) itemsList.add(myItem);
+        for(int i = 0; i < length; i++){
+            map.put((length - i), new ArrayList<Long>());
+        }
+
+        for(int i = 0; i < length; i++){
+
+            for(int j = 0; j < array.length; j++){
+
+                if(map.get(j) == null){
+                    ArrayList<Long> list = new ArrayList<Long>();
+                } else {
+                    ArrayList<Long> list = map.get(stack.size() - j);
+                }
+
+                if(array[i + 1] != null){
+
+                }
             }
+
         }
 
         return minMax;
