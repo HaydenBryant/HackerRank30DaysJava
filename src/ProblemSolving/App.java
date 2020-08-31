@@ -8,39 +8,51 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the riddle function below.
-    static long[] riddle(long[] arr) {
-        // complete this function
-        // List<Long> minMax = new ArrayList<>();
-        long[] minMax = new long[arr.length];
+    // Complete the isValid function below.
+    static String isValid(String s) {
+        HashMap<String, Integer> letterFreq = new HashMap<String, Integer>();
 
-        // minMax.add(Collections.max(Arrays.asList(arr)));
+        String[] arr = s.split("");
 
-        // long max = Arrays.stream(arr)
-        //     .max()
-        //     .getAsLong();
-
-        // minMax[0] = max;
-
-        List<Long> minimums = new ArrayList<>();
-        for(int i = 0; i < arr.length; i++){
-            long current = arr[i];
-            for(int j = 0; j < i + 1; j++){
-                if(arr[j] < current){
-                    current = arr[j];
-                }
-                if(j + 1 == i + 1){
-                    minimums.add(current);
-                }
+        for(String letter : arr){
+            if(!letterFreq.containsKey(letter)){
+                letterFreq.put(letter, 1);
+            } else {
+                letterFreq.put(letter, letterFreq.get(letter) + 1);
             }
-            long maxMin = Collections.min(minimums);
-            minMax[i] = maxMin;
-
         }
-        // long[] itemsArray = new long[arr.length];
-        // itemsArray = minMax.toArray(itemsArray);
 
-        return minMax;
+        int last = 0;
+        int edit = 0;
+        for(String letter : letterFreq.keySet()){
+            int v = letterFreq.get(letter);
+            if(last == 0){
+                last = v;
+                continue;
+            }
+            if(v == last){
+                continue;
+            }
+
+            if(edit == 0 && (v - 1 == last || v - 1 == 0)){
+                edit++;
+                continue;
+            }
+
+            if(edit == 0 && (last - 1 == v || last - 1 == 0)){
+                edit++;
+                last = v;
+                continue;
+            }
+
+            return "NO";
+        }
+
+        // for(String letter : letterFreq.keySet()){
+        //     System.out.println(letter + " " + letterFreq.get(letter));
+        // }
+
+        return "YES";
 
     }
 
@@ -49,29 +61,11 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int n = scanner.nextInt();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+        String s = scanner.nextLine();
 
-        long[] arr = new long[n];
+        String result = isValid(s);
 
-        String[] arrItems = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        for (int i = 0; i < n; i++) {
-            long arrItem = Long.parseLong(arrItems[i]);
-            arr[i] = arrItem;
-        }
-
-        long[] res = riddle(arr);
-
-        for (int i = 0; i < res.length; i++) {
-            bufferedWriter.write(String.valueOf(res[i]));
-
-            if (i != res.length - 1) {
-                bufferedWriter.write(" ");
-            }
-        }
-
+        bufferedWriter.write(result);
         bufferedWriter.newLine();
 
         bufferedWriter.close();
