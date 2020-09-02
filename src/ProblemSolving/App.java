@@ -14,32 +14,63 @@ public class Solution {
         long[] minMax = new long[arr.length];
 
         HashMap<Long, ArrayList<Long>> map = new HashMap<Long, ArrayList<Long>>();
-        Array<Long> array = arr;
+        Stack<Long> stack = new Stack<Long>();
         long length = arr.length;
 
         for(int i = 0; i < length; i++){
-            map.put((length - i), new ArrayList<Long>());
+            map.put(i, new ArrayList<Long>());
+            stack.push(arr[i]);
         }
 
         for(int i = 0; i < length; i++){
-
-            for(int j = 0; j < array.length; j++){
-
-                if(map.get(j) == null){
-                    ArrayList<Long> list = new ArrayList<Long>();
-                } else {
-                    ArrayList<Long> list = map.get(stack.size() - j);
+            long curr = stack.pop();
+            for(int j = i; j >= 0; j--){
+                if(j == 0){
+                    addToList(j, curr);
+                    return;
                 }
 
-                if(array[i + 1] != null){
-
-                }
+                long lastMin = findLastMin(j-1);
+                long min = findMin(curr, lastMin);
+                addToList(j, min);
             }
+        }
 
+        int i = 0;
+        for(int key : map.keySet()){
+            long max = Collections.max(map.get(key));
+            minMax[i] = max;
+            i++;
         }
 
         return minMax;
 
+
+
+    }
+
+    public static ArrayList<Long> addToList(ArrayList<Long> list, long num){
+        ArrayList<Long> list = list;
+
+        list.add(num);
+
+        return;
+    }
+
+    public static long findLastMin(HashMap map, long key){
+        ArrayList<Long> list = map.get(key);
+
+        long lastMin = list.get(list.size());
+
+        return lastMin;
+    }
+
+    public static long findMin(long curr, long lastMin){
+        if(curr < lastMin){
+            return curr;
+        }
+
+        return lastMin;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
