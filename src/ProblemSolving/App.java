@@ -13,7 +13,7 @@ public class Solution {
         // complete this function
         long[] minMax = new long[arr.length];
 
-        HashMap<Long, ArrayList<Long>> map = new HashMap<Long, ArrayList<Long>>();
+        HashMap<Integer, ArrayList<Long>> map = new HashMap<Integer, ArrayList<Long>>();
         Stack<Long> stack = new Stack<Long>();
         long length = arr.length;
 
@@ -26,13 +26,14 @@ public class Solution {
             long curr = stack.pop();
             for(int j = i; j >= 0; j--){
                 if(j == 0){
-                    addToList(j, curr);
-                    return;
+                    ArrayList<Long> list = addToList(map.get(j), curr);
+                    map.put(j, list);
+                    break;
                 }
-
-                long lastMin = findLastMin(j-1);
+                long lastMin = findLastMin(map.get(j-1));
                 long min = findMin(curr, lastMin);
-                addToList(j, min);
+                ArrayList<Long> list = addToList(map.get(j), min);
+                map.put(j, list);
             }
         }
 
@@ -44,24 +45,16 @@ public class Solution {
         }
 
         return minMax;
-
-
-
     }
 
     public static ArrayList<Long> addToList(ArrayList<Long> list, long num){
-        ArrayList<Long> list = list;
-
-        list.add(num);
-
-        return;
+        ArrayList<Long> newList = list;
+        newList.add(num);
+        return newList;
     }
 
-    public static long findLastMin(HashMap map, long key){
-        ArrayList<Long> list = map.get(key);
-
-        long lastMin = list.get(list.size());
-
+    public static long findLastMin(ArrayList<Long> list){
+        long lastMin = list.get(list.size() - 1);
         return lastMin;
     }
 
@@ -69,7 +62,6 @@ public class Solution {
         if(curr < lastMin){
             return curr;
         }
-
         return lastMin;
     }
 
