@@ -8,38 +8,33 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the riddle function below.
-    static long[] riddle(long[] arr) {
-        // complete this function
-        long[] minMax = new long[arr.length];
+    // Complete the climbingLeaderboard function below.
+    static int[] climbingLeaderboard(int[] scores, int[] alice) {
+        int[] placing = new int[alice.length];
 
-        HashMap<Long, ArrayList<Long>> map = new HashMap<Long, ArrayList<Long>>();
-        Array<Long> array = arr;
-        long length = arr.length;
+        int[] noDups = Arrays.stream(scores)
+                .distinct()
+                .toArray();
 
-        for(int i = 0; i < length; i++){
-            map.put((length - i), new ArrayList<Long>());
-        }
-
-        for(int i = 0; i < length; i++){
-
-            for(int j = 0; j < array.length; j++){
-
-                if(map.get(j) == null){
-                    ArrayList<Long> list = new ArrayList<Long>();
-                } else {
-                    ArrayList<Long> list = map.get(stack.size() - j);
+        int placingIndex = 0;
+        for(int score : alice){
+            int place = 1;
+            for(int i = noDups.length - 1; i > 0; i--){
+                if(score > noDups[i]){
+                    continue;
                 }
-
-                if(array[i + 1] != null){
-
+                if(score == noDups[i]){
+                    place = i + 1;
+                    break;
                 }
+                place = (i + 2);
+                break;
             }
-
+            placing[placingIndex] = place;
+            placingIndex++;
         }
 
-        return minMax;
-
+        return placing;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -47,26 +42,39 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int n = scanner.nextInt();
+        int scoresCount = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        long[] arr = new long[n];
+        int[] scores = new int[scoresCount];
 
-        String[] arrItems = scanner.nextLine().split(" ");
+        String[] scoresItems = scanner.nextLine().split(" ");
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        for (int i = 0; i < n; i++) {
-            long arrItem = Long.parseLong(arrItems[i]);
-            arr[i] = arrItem;
+        for (int i = 0; i < scoresCount; i++) {
+            int scoresItem = Integer.parseInt(scoresItems[i]);
+            scores[i] = scoresItem;
         }
 
-        long[] res = riddle(arr);
+        int aliceCount = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        for (int i = 0; i < res.length; i++) {
-            bufferedWriter.write(String.valueOf(res[i]));
+        int[] alice = new int[aliceCount];
 
-            if (i != res.length - 1) {
-                bufferedWriter.write(" ");
+        String[] aliceItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int i = 0; i < aliceCount; i++) {
+            int aliceItem = Integer.parseInt(aliceItems[i]);
+            alice[i] = aliceItem;
+        }
+
+        int[] result = climbingLeaderboard(scores, alice);
+
+        for (int i = 0; i < result.length; i++) {
+            bufferedWriter.write(String.valueOf(result[i]));
+
+            if (i != result.length - 1) {
+                bufferedWriter.write("\n");
             }
         }
 
