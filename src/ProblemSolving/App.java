@@ -1,87 +1,73 @@
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
-public class Solution {
+class Person {
+    protected String firstName;
+    protected String lastName;
+    protected int idNumber;
 
-    // Complete the climbingLeaderboard function below.
-    static int[] climbingLeaderboard(int[] scores, int[] alice) {
-        int[] placing = new int[alice.length];
-
-        int[] noDups = Arrays.stream(scores)
-                .distinct()
-                .toArray();
-
-        int placingIndex = 0;
-        for(int score : alice){
-            int place = 1;
-            for(int i = noDups.length - 1; i > 0; i--){
-                if(score > noDups[i]){
-                    continue;
-                }
-                if(score == noDups[i]){
-                    place = i + 1;
-                    break;
-                }
-                place = (i + 2);
-                break;
-            }
-            placing[placingIndex] = place;
-            placingIndex++;
-        }
-
-        return placing;
+    // Constructor
+    Person(String firstName, String lastName, int identification){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.idNumber = identification;
     }
 
-    private static final Scanner scanner = new Scanner(System.in);
+    // Print person data
+    public void printPerson(){
+        System.out.println(
+                "Name: " + lastName + ", " + firstName
+                        + 	"\nID: " + idNumber);
+    }
 
-    public static void main(String[] args) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+}
 
-        int scoresCount = scanner.nextInt();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+class Student extends Person{
+    private int[] testScores;
 
-        int[] scores = new int[scoresCount];
+    /*
+     *   Class Constructor
+     *
+     *   @param firstName - A string denoting the Person's first name.
+     *   @param lastName - A string denoting the Person's last name.
+     *   @param id - An integer denoting the Person's ID number.
+     *   @param scores - An array of integers denoting the Person's test scores.
+     */
+    // Write your constructor here
+    Student(String firstName, String lastName, int id, int[] scores){
+        super(firstName, lastName, id);
+        this.testScores = scores;
+    }
 
-        String[] scoresItems = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        for (int i = 0; i < scoresCount; i++) {
-            int scoresItem = Integer.parseInt(scoresItems[i]);
-            scores[i] = scoresItem;
+    /*
+     *   Method Name: calculate
+     *   @return A character denoting the grade.
+     */
+    // Write your method here
+    public char calculate(){
+        int average = 0;
+        for(int score : testScores){
+            average += score;
         }
-
-        int aliceCount = scanner.nextInt();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        int[] alice = new int[aliceCount];
-
-        String[] aliceItems = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        for (int i = 0; i < aliceCount; i++) {
-            int aliceItem = Integer.parseInt(aliceItems[i]);
-            alice[i] = aliceItem;
+        average = average/testScores.length;
+        if(average >= 90) {
+            return 'O';
         }
-
-        int[] result = climbingLeaderboard(scores, alice);
-
-        for (int i = 0; i < result.length; i++) {
-            bufferedWriter.write(String.valueOf(result[i]));
-
-            if (i != result.length - 1) {
-                bufferedWriter.write("\n");
-            }
+        else if(average >= 80) {
+            return 'E';
         }
-
-        bufferedWriter.newLine();
-
-        bufferedWriter.close();
-
-        scanner.close();
+        else if(average >= 70) {
+            return 'A';
+        }
+        else if(average >= 55) {
+            return 'P';
+        }
+        else if(average >= 40) {
+            return 'D';
+        }
+        else {
+            return 'T';
+        }
     }
 }
+
+class Solution {
