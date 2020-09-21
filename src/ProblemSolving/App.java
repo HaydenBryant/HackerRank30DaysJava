@@ -1,48 +1,40 @@
+import java.io.*;
 import java.util.*;
-
-abstract class Book {
-    String title;
-    String author;
-
-    Book(String title, String author) {
-        this.title = title;
-        this.author = author;
-    }
-
-    abstract void display();
-}
-
-    // Declare your class here. Do not use the 'public' access modifier.
-    // Declare the price inse variable
-    int price;
-
-    /**
-     *   Class Constructor
-     *
-     *   @param title The book's title.
-     *   @param author The book's author.
-     *   @param price The book's price.
-     **/
-    // Write your constructor here
-    MyBook(String title, String author, int price){
-        super(title, author);
-        this.price = price;
-    }
-
-    /**
-     *   Method Name: display
-     *
-     *   Print the title, author, and price in the specified format.
-     **/
-    // Write your method here
-    public void display(){
-        System.out.println(
-                "Title: " + this.title + "\n"
-                        +   "Author: " + this.author + "\n"
-                        +   "Price: " + this.price
-        );
-    }
-
-// End class
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
 
 public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] a = new int[n];
+        for(int a_i=0; a_i < n; a_i++){
+            a[a_i] = in.nextInt();
+        }
+        // Write Your Code Here
+        int numSwaps = 0;
+        for (int i = 0; i < n; i++) {
+            int swaps = 0;
+
+            for (int j = 0; j < n - 1; j++) {
+                if (a[j] > a[j + 1]) {
+                    // Collections.swap(a, a[j], a[j + 1]);
+                    int keep = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = keep;
+                    swaps++;
+                    numSwaps++;
+                }
+            }
+
+            if (swaps == 0) {
+                break;
+            }
+        }
+        System.out.println("Array is sorted in " + numSwaps + " swaps.");
+        System.out.println("First Element: " + a[0]);
+        System.out.println("Last Element: " + a[n-1]);
+    }
+}
