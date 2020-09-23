@@ -1,24 +1,18 @@
-import java.io.*;
 import java.util.*;
-import java.text.*;
-import java.math.*;
-import java.util.regex.*;
 
+class Printer <T> {
 
-class Difference {
-    private int[] elements;
-    public int maximumDifference;
+    /**
+     *    Method Name: printArray
+     *    Print each element of the generic array on a new line. Do not return anything.
+     *    @param A generic array
+     **/
 
-    // Add your code here
-
-    public Difference(int[] elements){
-        this.elements = elements;
+    // Write your code here
+    public static <E> void printArray(E[] arr){
+        for(E element : arr){
+            System.out.println(element);
+        }
     }
 
-    public void computeDifference(){
-        Arrays.sort(elements);
-        this.maximumDifference = Math.abs(elements[elements.length - 1] - elements[0]);
-    }
-
-
-} // End of Difference class
+}
