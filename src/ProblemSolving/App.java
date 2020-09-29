@@ -1,35 +1,33 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
-//Write your code here
-class Calculator{
-    public int power(int n, int p) throws Exception{
-        if(n < 0 || p < 0){
-            throw new Exception("n and p should be non-negative");
+interface AdvancedArithmetic{
+    int divisorSum(int n);
+}
+class Calculator implements AdvancedArithmetic{
+    public int divisorSum(int n){
+        int sum = 0;
+        for (int i = 1; i*i<=n; i++) {
+            if (n % i == 0) {
+                if (i != n / i){
+                    sum += i;
+                }
+                sum += (n / i);
+            }
         }
-        return (int)Math.pow(n,p);
+        return sum;
     }
 }
-
-class Solution{
+class Solution {
 
     public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+        scan.close();
 
-        Scanner in = new Scanner(System.in);
-        int t = in.nextInt();
-        while (t-- > 0) {
-
-            int n = in.nextInt();
-            int p = in.nextInt();
-            Calculator myCalculator = new Calculator();
-            try {
-                int ans = myCalculator.power(n, p);
-                System.out.println(ans);
-            }
-            catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        in.close();
+        AdvancedArithmetic myCalculator = new Calculator();
+        int sum = myCalculator.divisorSum(n);
+        System.out.println("I implemented: " + myCalculator.getClass().getInterfaces()[0].getName() );
+        System.out.println(sum);
     }
 }
