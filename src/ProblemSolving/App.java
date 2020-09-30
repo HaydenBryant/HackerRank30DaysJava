@@ -15,27 +15,6 @@ class Solution{
         //Write your code here
 
         travler(root, 1);
-
-        //   while(true){
-        //       if(travR.right != null){
-        //           heightR++;
-        //           travR = travR.right;
-        //           continue;
-        //       } else if(travL.left != null){
-        //           heightL++;
-        //           travL = travL.left;
-        //       } else {
-        //           if(heightR > maxHeight){
-        //               maxHeight = heightR;
-        //                 heightR = 0;
-        //           }
-        //           if(heightL > maxHeight){
-        //               maxHeight = heightL;
-        //               heightL = 0;
-        //           }
-        //           break;
-        //       }
-        //   }
         return maxHeight;
     }
 
@@ -46,10 +25,10 @@ class Solution{
         if(trav.left != null){
             travler(trav.left, height++);
         }
-        if(height > maxHeight){
-            maxHeight = height;
+        if(height + 1 > maxHeight){
+            maxHeight = height + 1;
         }
-        return height;
+        return height++;
     }
 
     public static Node insert(Node root,int data){
