@@ -12,14 +12,17 @@ class Node{
 class Solution
 {
 
+
+
     public static Node removeDuplicates(Node head) {
         //Write your code here
+
         int last = head.data;
         Node trav = head.next;
         Node cleanList = new Node(head.data);
         Node current = cleanList;
 
-        while(true){
+        while(trav != null){
             if(trav.data == last){
                 trav = trav.next;
                 continue;
@@ -36,7 +39,6 @@ class Solution
         return cleanList;
 
     }
-
     public static  Node insert(Node head,int data)
     {
         Node p=new Node(data);
