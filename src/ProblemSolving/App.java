@@ -17,6 +17,7 @@ class Solution
         int last = head.data;
         Node trav = head.next;
         Node cleanList = new Node(head.data);
+        Node current = cleanList;
 
         while(true){
             if(trav.data == last){
@@ -24,22 +25,13 @@ class Solution
                 continue;
             }
             Node p = new Node(trav.data);
-            if(cleanList.next==null){
-                cleanList.next = p;
-            } else {
-                Node start = cleanList;
-                while(start.next!=null){
-                    start = start.next;
-                }
-                start.next=p;
-            }
-
+            current.next = p;
+            current = current.next;
             last = trav.data;
             if(trav.next == null){
                 break;
             }
             trav = trav.next;
-
         }
         return cleanList;
 
