@@ -1,81 +1,63 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 class Node{
+    Node left,right;
     int data;
-    Node next;
-    Node(int d){
-        data=d;
-        next=null;
+    Node(int data){
+        this.data=data;
+        left=right=null;
     }
-
 }
-class Solution
-{
+class Solution{
 
 
-
-    public static Node removeDuplicates(Node head) {
+    static void levelOrder(Node root){
         //Write your code here
+        Queue<Node> queue = new LinkedList<Node>();
 
-        int last = head.data;
-        Node trav = head.next;
-        Node cleanList = new Node(head.data);
-        Node current = cleanList;
+        queue.add(root);
+        Node trav = new Node(root.data);
 
-        while(trav != null){
-            if(trav.data == last){
-                trav = trav.next;
-                continue;
+        while(!queue.isEmpty()){
+            Node node = queue.remove();
+
+            System.out.print(node.data + " ");
+
+            if (node.left != null) {
+                queue.add(node.left);
             }
-            Node p = new Node(trav.data);
-            current.next = p;
-            current = current.next;
-            last = trav.data;
-            if(trav.next == null){
-                break;
+            if (node.right != null) {
+                queue.add(node.right);
             }
-            trav = trav.next;
         }
-        return cleanList;
+    }
 
-    }
-    public static  Node insert(Node head,int data)
-    {
-        Node p=new Node(data);
-        if(head==null)
-            head=p;
-        else if(head.next==null)
-            head.next=p;
-        else
-        {
-            Node start=head;
-            while(start.next!=null)
-                start=start.next;
-            start.next=p;
 
+    public static Node insert(Node root,int data){
+        if(root==null){
+            return new Node(data);
         }
-        return head;
-    }
-    public static void display(Node head)
-    {
-        Node start=head;
-        while(start!=null)
-        {
-            System.out.print(start.data+" ");
-            start=start.next;
+        else{
+            Node cur;
+            if(data<=root.data){
+                cur=insert(root.left,data);
+                root.left=cur;
+            }
+            else{
+                cur=insert(root.right,data);
+                root.right=cur;
+            }
+            return root;
         }
     }
-    public static void main(String args[])
-    {
+    public static void main(String args[]){
         Scanner sc=new Scanner(System.in);
-        Node head=null;
         int T=sc.nextInt();
+        Node root=null;
         while(T-->0){
-            int ele=sc.nextInt();
-            head=insert(head,ele);
+            int data=sc.nextInt();
+            root=insert(root,data);
         }
-        head=removeDuplicates(head);
-        display(head);
-
+        levelOrder(root);
     }
 }
