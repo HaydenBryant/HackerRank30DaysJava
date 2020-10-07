@@ -1,63 +1,26 @@
-import java.util.*;
 import java.io.*;
-class Node{
-    Node left,right;
-    int data;
-    Node(int data){
-        this.data=data;
-        left=right=null;
-    }
-}
-class Solution{
+import java.util.*;
 
+public class Solution {
 
-    static void levelOrder(Node root){
-        //Write your code here
-        Queue<Node> queue = new LinkedList<Node>();
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner in = new Scanner(System.in);
 
-        queue.add(root);
-        Node trav = new Node(root.data);
+        int iterations = in.nextInt();
 
-        while(!queue.isEmpty()){
-            Node node = queue.remove();
-
-            System.out.print(node.data + " ");
-
-            if (node.left != null) {
-                queue.add(node.left);
+        for(int i = iterations; i > 0; i--){
+            int possPrime = in.nextInt();
+            if(possPrime == 1 || possPrime == 2 || possPrime == 3){
+                System.out.println("Prime");
+                continue;
             }
-            if (node.right != null) {
-                queue.add(node.right);
+            if((possPrime - 1) != -1 % possPrime ||
+                    (possPrime - 1) != (possPrime-1) % possPrime){
+                System.out.println("Prime");
+                continue;
             }
+            System.out.println("Not prime");
         }
-    }
-
-
-    public static Node insert(Node root,int data){
-        if(root==null){
-            return new Node(data);
-        }
-        else{
-            Node cur;
-            if(data<=root.data){
-                cur=insert(root.left,data);
-                root.left=cur;
-            }
-            else{
-                cur=insert(root.right,data);
-                root.right=cur;
-            }
-            return root;
-        }
-    }
-    public static void main(String args[]){
-        Scanner sc=new Scanner(System.in);
-        int T=sc.nextInt();
-        Node root=null;
-        while(T-->0){
-            int data=sc.nextInt();
-            root=insert(root,data);
-        }
-        levelOrder(root);
     }
 }
