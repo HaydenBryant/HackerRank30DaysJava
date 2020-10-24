@@ -8,26 +8,30 @@ public class Solution {
         Scanner in = new Scanner(System.in);
 
         int iterations = in.nextInt();
-        ArrayList<Integer> primes = new ArrayList<Integer>();
 
         for(int i = iterations; i > 0; i--){
             int possPrime = in.nextInt();
             if(possPrime == 1 || possPrime == 2 || possPrime == 3){
                 System.out.println("Prime");
+
                 continue;
             }
-            if(possPrime % 2 != 0){
-                for(int prime : primes){
-                    if(possPrime % prime == 0){
-                        System.out.println("Not prime");
-                        break;
-                    }
+            if(possPrime % 2 == 0){
+                System.out.println("Not prime");
+                continue;
+            }
+            Boolean isPrime = true;
+            for(long j = Math.round(Math.sqrt(possPrime)); j > 2; j--){
+                if(possPrime % j == 0){
+                    System.out.println("Not prime");
+                    isPrime = false;
+                    break;
                 }
-                System.out.println("Prime");
-                primes.add(possPrime);
+            }
+            if(isPrime == false){
                 continue;
             }
-            System.out.println("Not prime");
+            System.out.println("Prime");
         }
     }
 }
