@@ -11,7 +11,11 @@ public class Solution {
 
         for(int i = iterations; i > 0; i--){
             int possPrime = in.nextInt();
-            if(possPrime == 1 || possPrime == 2 || possPrime == 3){
+            if(possPrime == 1){
+                System.out.println("Not prime");
+                continue;
+            }
+            if(possPrime == 2 || possPrime == 3){
                 System.out.println("Prime");
 
                 continue;
