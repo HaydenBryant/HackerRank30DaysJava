@@ -14,21 +14,21 @@ public class Day18 {
         // Write your code here.
         Stack<Character> stack = new Stack<Character>();
         Queue<Character> queue = new LinkedList<Character>();
-        void pushCharacter(char ch)
-        {
+
+        void pushCharacter(char ch) {
             stack.push(ch);
         }
-        void enqueueCharacter(char ch){
+
+        void enqueueCharacter(char ch) {
             queue.add(ch);
         }
+
         char popCharacter() {
             return stack.pop();
         }
 
-        char dequeueCharacter()
-        {
+        char dequeueCharacter() {
             return queue.remove();
         }
-
-        public static void main(String[] args) {
+    }
 }
